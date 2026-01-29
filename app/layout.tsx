@@ -1,14 +1,12 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { Sidebar } from "@/components/dashboard/sidebar"
-import { Header } from "@/components/dashboard/header"
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "ServiceLine Dashboard",
-  description: "Lead Management, Campaign Tracking & Analytics",
+  title: 'ServiceLine - Lead Generation Dashboard',
+  description: 'Manage your leads and campaigns efficiently',
 }
 
 export default function RootLayout({
@@ -18,17 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="flex h-screen">
-          <Sidebar />
-          <div className="flex flex-1 flex-col">
-            <Header />
-            <main className="flex-1 overflow-y-auto bg-background p-6">
-              {children}
-            </main>
-          </div>
-        </div>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 }
