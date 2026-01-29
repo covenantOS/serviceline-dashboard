@@ -3,14 +3,25 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 
+/**
+ * Props for the StatusChart component
+ */
 interface StatusChartProps {
   data: Array<{
-    name: string
-    value: number
-    color: string
+    name: string    // Status name (e.g., "New", "Won", "Lost")
+    value: number   // Number of leads with this status
+    color: string   // Hex color code for the segment
   }>
 }
 
+/**
+ * StatusChart - Pie chart component showing lead status distribution
+ * 
+ * Displays the breakdown of leads by their current status with color coding.
+ * Uses Recharts library for data visualization.
+ * 
+ * @param data - Array of status/count/color objects
+ */
 export function StatusChart({ data }: StatusChartProps) {
   return (
     <Card>
