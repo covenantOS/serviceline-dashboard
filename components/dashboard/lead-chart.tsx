@@ -3,13 +3,24 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
+/**
+ * Props for the LeadChart component
+ */
 interface LeadChartProps {
   data: Array<{
-    date: string
-    leads: number
+    date: string    // Date label (e.g., "Jan 29")
+    leads: number   // Number of leads on that date
   }>
 }
 
+/**
+ * LeadChart - Line chart component showing lead generation trends
+ * 
+ * Displays a 30-day trend of lead generation with interactive features.
+ * Uses Recharts library for data visualization.
+ * 
+ * @param data - Array of date/lead count pairs
+ */
 export function LeadChart({ data }: LeadChartProps) {
   return (
     <Card>
