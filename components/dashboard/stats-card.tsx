@@ -1,5 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { LucideIcon } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { LucideIcon } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface StatsCardProps {
   title: string
@@ -12,7 +13,13 @@ interface StatsCardProps {
   }
 }
 
-export function StatsCard({ title, value, description, icon: Icon, trend }: StatsCardProps) {
+export function StatsCard({
+  title,
+  value,
+  description,
+  icon: Icon,
+  trend,
+}: StatsCardProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -25,12 +32,14 @@ export function StatsCard({ title, value, description, icon: Icon, trend }: Stat
           <p className="text-xs text-muted-foreground">{description}</p>
         )}
         {trend && (
-          <div className="mt-2 flex items-center text-xs">
-            <span className={trend.isPositive ? "text-green-600" : "text-red-600"}>
-              {trend.isPositive ? "+" : ""}{trend.value}%
-            </span>
-            <span className="ml-1 text-muted-foreground">from last month</span>
-          </div>
+          <p
+            className={cn(
+              'text-xs font-medium',
+              trend.isPositive ? 'text-green-600' : 'text-red-600'
+            )}
+          >
+            {trend.isPositive ? '+' : ''}{trend.value}% from last month
+          </p>
         )}
       </CardContent>
     </Card>
