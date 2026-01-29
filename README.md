@@ -6,7 +6,7 @@ A modern, full-featured lead generation and campaign management dashboard built 
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat&logo=typescript)
 ![Supabase](https://img.shields.io/badge/Supabase-Backend-green?style=flat&logo=supabase)
 
-<!-- Build: 2026-01-29T21:43:00Z - Force fresh Vercel build -->
+<!-- Build: 2026-01-29T21:45:00Z - Force fresh Vercel build (cache clear) -->
 
 ## 🚀 Features
 
