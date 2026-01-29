@@ -122,7 +122,7 @@ export async function createLeadActivity(activity: Omit<LeadActivity, 'id' | 'cr
   return data as LeadActivity
 }
 
-// Dashboard Stats - Now returns full lead data with source field
+// Dashboard Stats - Returns complete lead data for analytics
 export async function getDashboardStats() {
   const { data: leads, error: leadsError } = await supabase
     .from('leads')
