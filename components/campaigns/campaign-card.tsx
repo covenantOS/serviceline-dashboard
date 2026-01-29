@@ -1,81 +1,72 @@
-"use client"
-
-import { Campaign } from "@/types/campaign"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { MoreHorizontal, TrendingUp, Users, DollarSign } from "lucide-react"
-import { Progress } from "@/components/ui/progress"
+import Link from 'next/link'
+import { Campaign } from '@/lib/supabase'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { formatCurrency, formatDate } from '@/lib/utils'
+import { Eye, Users } from 'lucide-react'
 
 interface CampaignCardProps {
   campaign: Campaign
 }
 
 const statusColors = {
-  draft: "bg-gray-500",
-  active: "bg-green-500",
-  paused: "bg-yellow-500",
-  completed: "bg-blue-500",
+  active: 'bg-green-100 text-green-800',
+  paused: 'bg-yellow-100 text-yellow-800',
+  completed: 'bg-gray-100 text-gray-800',
 }
 
 export function CampaignCard({ campaign }: CampaignCardProps) {
-  const budgetUsed = (campaign.spent / campaign.budget) * 100
-
   return (
     <Card>
       <CardHeader>
         <div className="flex items-start justify-between">
-          <div className="space-y-1">
+          <div>
             <CardTitle>{campaign.name}</CardTitle>
-            <CardDescription>{campaign.description}</CardDescription>
+            <CardDescription>
+              {campaign.description || 'No description'}
+            </CardDescription>
           </div>
-          <Button variant="ghost" size="icon">
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </div>
-        <div className="flex flex-wrap gap-2 pt-2">
           <Badge className={statusColors[campaign.status]}>
             {campaign.status}
           </Badge>
-          {campaign.channels.map((channel) => (
-            <Badge key={channel} variant="outline">
-              {channel}
-            </Badge>
-          ))}
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-3 gap-4 text-sm">
-          <div>
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <Users className="h-3 w-3" />
-              Leads
+      <CardContent>
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <p className="text-muted-foreground">Budget</p>
+              <p className="font-medium">
+                {campaign.budget ? formatCurrency(campaign.budget) : '-'}
+              </p>
             </div>
-            <div className="text-2xl font-bold">{campaign.leads}</div>
-          </div>
-          <div>
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <TrendingUp className="h-3 w-3" />
-              Conv. Rate
+            <div>
+              <p className="text-muted-foreground">Leads</p>
+              <p className="font-medium flex items-center gap-1">
+                <Users className="h-4 w-4" />
+                {campaign.leads_count}
+              </p>
             </div>
-            <div className="text-2xl font-bold">{campaign.conversionRate}%</div>
+            {campaign.start_date && (
+              <div>
+                <p className="text-muted-foreground">Start Date</p>
+                <p className="font-medium">{formatDate(campaign.start_date)}</p>
+              </div>
+            )}
+            {campaign.end_date && (
+              <div>
+                <p className="text-muted-foreground">End Date</p>
+                <p className="font-medium">{formatDate(campaign.end_date)}</p>
+              </div>
+            )}
           </div>
-          <div>
-            <div className="flex items-center gap-1 text-muted-foreground">
-              <DollarSign className="h-3 w-3" />
-              ROI
-            </div>
-            <div className="text-2xl font-bold">{campaign.roi}%</div>
-          </div>
-        </div>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-muted-foreground">Budget</span>
-            <span className="font-medium">
-              ${campaign.spent.toLocaleString()} / ${campaign.budget.toLocaleString()}
-            </span>
-          </div>
-          <Progress value={budgetUsed} />
+          <Link href={`/campaigns/${campaign.id}`}>
+            <Button variant="outline" className="w-full">
+              <Eye className="h-4 w-4 mr-2" />
+              View Details
+            </Button>
+          </Link>
         </div>
       </CardContent>
     </Card>
